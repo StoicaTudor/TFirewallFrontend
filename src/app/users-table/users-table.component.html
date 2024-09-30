@@ -1,0 +1,45 @@
+<h2>Users List</h2>
+<table class="table table-bordered table-striped text-center">
+  <thead>
+  <tr>
+    <th>Email</th>
+    <th>Role</th>
+    <th>Profiles</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let user of users">
+    <td>{{ user.email }}</td>
+    <td>{{ user.role }}</td>
+    <td>
+      <button (click)="saveNewUser()" class="btn btn-primary">{{ user.profiles.length }}</button>
+    </td>
+  </tr>
+
+  <!-- New user input row -->
+  <tr *ngIf="isAddingNewUser">
+    <td>
+      <input type="text" [(ngModel)]="newUser.email" placeholder="Enter email" class="form-control text-center">
+    </td>
+    <td>
+      <select [(ngModel)]="newUser.role" class="form-control text-center">
+        <option *ngFor="let role of userRoles" [value]="role">{{ role }}</option>
+      </select>
+    </td>
+    <td>
+      <button (click)="saveNewUser()" class="btn btn-primary">Save</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+<!-- Button to add a new user row -->
+<div class="button-container" fxLayout="row" fxLayoutAlign="start center">
+  <div class="text-center mt-3">
+    <button (click)="addNewUserRow()" class="btn btn-success">Add New User</button>
+    <button (click)="deleteAllUsers()" class="btn btn-success">Delete All Users</button>
+  </div>
+</div>
+
+
+
