@@ -1,0 +1,38 @@
+.terminal {
+  background-color: black;
+  color: white;
+  padding: 20px;
+  border: 1px solid #333;
+  border-radius: 5px;
+  text-align: center; /* Center the "System Logs" title */
+  width: 100%; /* Make the container span the entire screen width */
+  height: 100%; /* Make the container span the entire screen height */
+  min-height: 100vh; /* Set a minimum height of 100 viewport height */
+}
+
+.terminal-header {
+  color: #999;
+}
+
+.terminal-content {
+  overflow-y: auto;
+  max-height: 300px;
+}
+
+.terminal-table {
+  color: #ccc;
+  margin: 0 auto; /* Center the table horizontally */
+  width: 100%;
+}
+
+.terminal-table-header th {
+  background-color: #222;
+}
+
+.terminal-table-row td {
+  color: #ccc;
+}
+
+.terminal-message {
+  color: #666;
+}

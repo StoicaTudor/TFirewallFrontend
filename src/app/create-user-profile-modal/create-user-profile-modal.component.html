@@ -1,0 +1,19 @@
+<h1 mat-dialog-title>Modal Title</h1>
+<div mat-dialog-content>
+
+  <mat-form-field appearance="fill" style="width: 100%; margin-bottom: 16px;">
+    <mat-label>Profile Name</mat-label>
+    <input matInput [(ngModel)]="modalData.name">
+  </mat-form-field>
+
+  <!-- Multi-line editable input field -->
+  <mat-form-field appearance="fill" style="width: 100%;">
+    <mat-label>Content</mat-label>
+    <textarea matInput [(ngModel)]="modalData.content" rows="4"></textarea>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onDelete()">Delete</button>
+  <button mat-button (click)="onSave()">Save</button>
+  <button mat-button (click)="onClose()">Close</button>
+</div>
