@@ -5,6 +5,7 @@ import {environment} from "./environments/environment";
 import {enableProdMode} from "@angular/core";
 import {AppRoutingModule} from "./app/routing/app.routes";
 import {provideRouter} from "@angular/router";
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 if (environment.production) {
   enableProdMode();
@@ -14,6 +15,6 @@ if (environment.production) {
 bootstrapApplication(AppComponent, {
   providers: [
     provideRouter(AppRoutingModule), // Use provideRouter with routes array
-    provideHttpClient() // Provide the HttpClientModule
+    provideHttpClient(), provideAnimationsAsync() // Provide the HttpClientModule
   ]
 }).catch(err => console.error(err));

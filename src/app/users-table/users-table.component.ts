@@ -3,13 +3,19 @@ import {Component, OnInit} from '@angular/core'
 import {NgForOf, NgIf} from "@angular/common"
 import {RouterOutlet} from "@angular/router"
 import {UserApiDispatcher} from "../api/api-dispatcher/user-api-dispatcher.service"
-import {emptyUser, User, UserRole, userIsValid} from "../entities/entities"
+import {emptyUser, User, UserRole, userIsValid} from "../entities/user"
 import {FormsModule} from "@angular/forms"
 import {userToUserCreationRequestDTO} from "../entities/dtos/user-dtos"
 import {listEnumStringValues} from "../state-management/utility"
 import {FlexModule} from "@angular/flex-layout"
-import { Router } from '@angular/router'
-import {NavigationService} from "../navigation/navigation.service";
+import {Router} from '@angular/router'
+import {NavigationService} from "../navigation/navigation.service"
+import {MatButton} from "@angular/material/button"
+import {
+  CreateUserProfileModalComponent,
+  CreateUserProfileModalData
+} from "../create-user-profile-modal/create-user-profile-modal.component"
+import {MatDialog} from "@angular/material/dialog"
 
 @Component({
   selector: 'app-users-table',
@@ -19,7 +25,8 @@ import {NavigationService} from "../navigation/navigation.service";
     RouterOutlet,
     NgIf,
     FormsModule,
-    FlexModule
+    FlexModule,
+    MatButton
   ], // In case you need additional Angular features like forms, pipes, etc.
   templateUrl: './users-table.component.html',
   styleUrls: ['./users-table.component.css']
@@ -40,7 +47,8 @@ export class UsersTableComponent implements OnInit {
   constructor(
     private userApiDispatcher: UserApiDispatcher,
     private router: Router,
-    protected navigationService: NavigationService) {
+    protected navigationService: NavigationService,
+    protected dialog: MatDialog) {
   }
 
   addNewUserRow() {
@@ -71,5 +79,15 @@ export class UsersTableComponent implements OnInit {
   // Load users from the API
   loadUsers(): void {
     this.userApiDispatcher.getAllUsers().subscribe(users => this.users = users)
+  }
+
+  openModal(userId: string): void {
+    const data: CreateUserProfileModalData = {
+      content: '',
+      name: '',
+      userID: userId
+    }
+
+    this.dialog.open(CreateUserProfileModalComponent, {data})
   }
 }

@@ -5,7 +5,7 @@ import {SignInComponent} from "../sign-in/sign-in.component";
 import {SignUpComponent} from "../sign-up/sign-up.component";
 import {UsersTableComponent} from "../users-table/users-table.component";
 
-const routes: Routes = [
+export const routes: Routes = [
   {path: Paths.Home, component: UsersTableComponent},
   {path: Paths.Logs, component: FirewallLogsComponent},
   {path: Paths.SignIn, component: SignInComponent},

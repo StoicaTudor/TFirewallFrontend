@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core'
 import {HttpClient} from '@angular/common/http'
 import {map, Observable} from 'rxjs'
-import {User} from "../../entities/entities"
+import {User} from "../../entities/user"
 import {UserApiUrlComposerService} from "../api-url-composer/user-api-url-composer.service"
 import {
   UserCreationResponseDto,

@@ -5,6 +5,7 @@
     <th>Email</th>
     <th>Role</th>
     <th>Profiles</th>
+
   </tr>
   </thead>
   <tbody>
@@ -12,7 +13,11 @@
     <td>{{ user.email }}</td>
     <td>{{ user.role }}</td>
     <td>
-      <button (click)="saveNewUser()" class="btn btn-primary">{{ user.profiles.length }}</button>
+      <button mat-button *ngFor="let profile of user.profiles" (click)="openModal(profile.id)">
+        {{ profile.name ?? "Profile" }}
+      </button>
+
+      <button mat-button (click)="openModal(user.id)">+</button>
     </td>
   </tr>
 

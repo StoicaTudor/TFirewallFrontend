@@ -3,7 +3,14 @@ export interface User {
   email: string
   password: string
   role: UserRole
-  profiles: any[]
+  profiles: UserProfile[]
+}
+
+export interface UserProfile {
+  id: string
+  userID: string
+  content: string
+  name: string
 }
 
 export function emptyUser(): User {
