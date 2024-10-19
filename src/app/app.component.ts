@@ -11,7 +11,8 @@ import {ServerStatusService} from "./state-management/server-status.service";
 import {RequestLoadingService} from "./state-management/request-loading.service";
 import {MatButton} from "@angular/material/button";
 import {MatDialog} from "@angular/material/dialog";
-import {CreateUserProfileModalComponent} from "./create-user-profile-modal/create-user-profile-modal.component"; // Adjust the path
+import {AngularToastifyModule} from "angular-toastify";
+import {NotificationWrapperComponent} from "./notification-wrapper/notification-wrapper.component";
 
 @Component({
   selector: AppRootSelector,
@@ -24,7 +25,9 @@ import {CreateUserProfileModalComponent} from "./create-user-profile-modal/creat
     RouterLink,
     FirewallLogsComponent,
     NgForOf,
-    MatButton
+    MatButton,
+    AngularToastifyModule,
+    NotificationWrapperComponent
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'] // Corrected to styleUrls

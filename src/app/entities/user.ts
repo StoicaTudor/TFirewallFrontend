@@ -8,9 +8,10 @@ export interface User {
 
 export interface UserProfile {
   id: string
-  userID: string
+  userId: string
   content: string
-  name: string
+  name: string,
+  isActiveProfile: boolean
 }
 
 export function emptyUser(): User {

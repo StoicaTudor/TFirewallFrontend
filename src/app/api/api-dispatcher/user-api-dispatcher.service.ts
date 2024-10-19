@@ -5,9 +5,17 @@ import {User} from "../../entities/user"
 import {UserApiUrlComposerService} from "../api-url-composer/user-api-url-composer.service"
 import {
   UserCreationResponseDto,
-  UserCreationRequestDto, UserDeletionResponseDto,
+  UserCreationRequestDto,
+  UserDeletionResponseDto,
   UserFetchResponseDto,
-  userFetchResponseToUser, UserUpdateResponseDto, UserProfileCreationRequestDto, UserProfileCreationResponseDto
+  userFetchResponseToUser,
+  UserUpdateResponseDto,
+  UserProfileCreationRequestDto,
+  UserProfileCreationResponseDto,
+  UserProfileUpdateRequestDto,
+  UserProfileUpdateResponseDto,
+  userProfileUpdateResponseDtoToUserProfile,
+  userProfileCreationResponseDtoToUserProfile, UserProfileDeletionRequestDto, UserProfileDeletionResponseDto
 } from "../../entities/dtos/user-dtos"
 
 @Injectable({
@@ -46,11 +54,22 @@ export class UserApiDispatcher {
   }
 
   deleteAllUsers(): Observable<UserDeletionResponseDto> {
-    console.log(this.urlComposer.deleteAllUsersUrl())
     return this.http.delete<UserDeletionResponseDto>(this.urlComposer.deleteAllUsersUrl())
   }
 
   createUserProfile(dto: UserProfileCreationRequestDto): Observable<UserProfileCreationResponseDto> {
-    return this.http.post<UserProfileCreationResponseDto>(this.urlComposer.createUserProfileUrl(), dto)
+    return this.http.post<UserProfileCreationResponseDto>(this.urlComposer.createUserProfileUrl(), dto).pipe(
+      map(dto => userProfileCreationResponseDtoToUserProfile(dto))
+    )
+  }
+
+  updateUserProfile(dto: UserProfileUpdateRequestDto): Observable<UserProfileUpdateResponseDto> {
+    return this.http.put<UserProfileUpdateResponseDto>(this.urlComposer.updateUserProfileUrl(), dto).pipe(
+      map(dto => userProfileUpdateResponseDtoToUserProfile(dto))
+    )
+  }
+
+  deleteUserProfile(dto: UserProfileDeletionRequestDto): Observable<UserProfileDeletionResponseDto> {
+    return this.http.delete<UserProfileDeletionRequestDto>(this.urlComposer.deleteUserProfileUrl(dto))
   }
 }

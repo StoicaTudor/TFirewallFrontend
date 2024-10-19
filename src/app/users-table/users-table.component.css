@@ -12,3 +12,29 @@ th, td {
 th {
   background-color: #f2f2f2;
 }
+
+.distinctive-button {
+  position: relative;           /* Position relative to position the flag */
+  background-color: #ff4081;   /* Bright color */
+  color: white;                 /* Text color */
+  font-weight: bold;            /* Make text bold */
+  border-radius: 8px;          /* Rounded corners */
+  padding: 12px 24px;          /* Larger padding */
+  transition: background-color 0.3s; /* Smooth color transition */
+}
+
+.distinctive-button:hover {
+  background-color: #e91e63;   /* Darker shade on hover */
+}
+
+.flag {
+  position: absolute;           /* Position absolute to the button */
+  top: -5px;                   /* Adjust to place in the corner */
+  right: -5px;                 /* Adjust to place in the corner */
+  background-color: yellow;    /* Flag background color */
+  color: black;                /* Flag text color */
+  padding: 2px 5px;            /* Flag padding */
+  border-radius: 5px;          /* Rounded corners for the flag */
+  font-size: 0.75em;           /* Smaller font size for the flag */
+  font-weight: bold;            /* Make flag text bold */
+}

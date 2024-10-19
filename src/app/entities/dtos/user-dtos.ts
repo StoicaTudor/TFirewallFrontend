@@ -1,5 +1,5 @@
 import {User, UserProfile, UserRole} from "../user"
-import {stringToEnum} from "../../state-management/utility";
+import {stringToEnum} from "../../utility/utility";
 
 export interface UserCreationRequestDto {
   email: string
@@ -16,21 +16,48 @@ export interface UserUpdateRequestDto {
 
 export interface UserProfileFetchResponseDto {
   id: string,
-  userID: string,
+  userId: string,
   content: string
   name: string,
+  isActiveProfile: boolean
 }
 
 export interface UserProfileCreationRequestDto {
+  isActiveProfile: boolean,
   name: string,
   userId: string,
   content: string
 }
 
-export interface UserProfileCreationResponseDto {
+export interface UserProfileUpdateRequestDto {
+  isActiveProfile: boolean,
+  name: string,
+  id: string,
+  userId: string,
+  content: string,
 }
 
-export interface UserProfileUpdateRequestDto {
+export interface UserProfileDeletionRequestDto {
+  id: string,
+}
+
+export interface UserProfileDeletionResponseDto {
+}
+
+export interface UserProfileUpdateResponseDto {
+  id: string
+  userId: string
+  content: string
+  name: string,
+  isActiveProfile: boolean
+}
+
+export interface UserProfileCreationResponseDto {
+  id: string
+  userId: string
+  content: string
+  name: string,
+  isActiveProfile: boolean
 }
 
 export interface UserCreationResponseDto {
@@ -74,8 +101,29 @@ export function userToUserCreationRequestDTO(dto: User): UserCreationRequestDto 
 export function userProfileFetchResponseDtoToUserProfile(dto: UserProfileFetchResponseDto): UserProfile {
   return {
     id: dto.id,
-    userID: dto.userID,
+    userId: dto.userId,
     content: dto.content,
     name: dto.name,
+    isActiveProfile: dto.isActiveProfile
+  }
+}
+
+export function userProfileUpdateResponseDtoToUserProfile(dto: UserProfileUpdateResponseDto): UserProfile {
+  return {
+    id: dto.id,
+    userId: dto.userId,
+    content: dto.content,
+    name: dto.name,
+    isActiveProfile: dto.isActiveProfile
+  }
+}
+
+export function userProfileCreationResponseDtoToUserProfile(dto: UserProfileCreationResponseDto): UserProfile {
+  return {
+    id: dto.id,
+    userId: dto.userId,
+    content: dto.content,
+    name: dto.name,
+    isActiveProfile: dto.isActiveProfile
   }
 }
