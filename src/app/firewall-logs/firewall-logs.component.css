@@ -4,19 +4,22 @@
   padding: 20px;
   border: 1px solid #333;
   border-radius: 5px;
-  text-align: center; /* Center the "System Logs" title */
-  width: 100%; /* Make the container span the entire screen width */
-  height: 100%; /* Make the container span the entire screen height */
-  min-height: 100vh; /* Set a minimum height of 100 viewport height */
+  text-align: center; /* Center the header text */
+  width: 100%; /* Full width */
+  min-height: 100vh; /* Minimum height of 100% of viewport height */
+  display: flex; /* Use flexbox for layout */
+  flex-direction: column; /* Stack items vertically */
 }
 
 .terminal-header {
   color: #999;
+  margin-bottom: 20px; /* Add space below the header */
 }
 
 .terminal-content {
-  overflow-y: auto;
-  max-height: 300px;
+  flex: 1; /* Allow content to grow */
+  overflow-y: auto; /* Enable vertical scrolling */
+  max-height: calc(100vh - 100px); /* Adjust max height to allow for header and padding */
 }
 
 .terminal-table {
@@ -35,4 +38,5 @@
 
 .terminal-message {
   color: #666;
+  margin-top: 20px; /* Add space above the message */
 }

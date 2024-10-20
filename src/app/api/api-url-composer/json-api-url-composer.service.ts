@@ -1,34 +1,30 @@
 import {Injectable} from '@angular/core'
 import {AbstractUrlComposerService} from "./abstract-url-composer.service";
-import {
-  UserProfileCreationResponseDto,
-  userProfileCreationResponseDtoToUserProfile,
-  UserProfileDeletionRequestDto
-} from "../../entities/dtos/user-dtos";
-import {HttpClient} from "@angular/common/http";
-import {map, Observable} from "rxjs";
-import {JsonValidationRequestDto, JsonValidationResponseDto} from "../../entities/dtos/utilities-dtos";
 
 @Injectable({
   providedIn: 'root'
 })
-export class UtilitiesApiUrlComposerService extends AbstractUrlComposerService {
+export class JsonApiUrlComposerService extends AbstractUrlComposerService {
   getEndpointsRoot(): string {
-    return "utilities"
+    return "json"
   }
 
   isJsonValid(): string {
     return `${this.createRootUrl()}/validate-json`
+  }
+
+  loadUserProfileSettings(): string {
+    return `${this.createRootUrl()}/load-user-profile-settings`
   }
 }
 
 // @Injectable({
 //   providedIn: 'root'
 // })
-// export class UtilitiesApiUrlComposerService {
+// export class jsonApiUrlComposerService {
 //   constructor(
 //     private http: HttpClient,
-//     private urlComposer: UtilitiesApiUrlComposerService) {
+//     private urlComposer: jsonApiUrlComposerService) {
 //   }
 //
 //   isJsonValid(dto: JsonValidationRequestDto): Observable<JsonValidationResponseDto> {

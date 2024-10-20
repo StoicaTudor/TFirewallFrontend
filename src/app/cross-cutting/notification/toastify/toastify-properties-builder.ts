@@ -8,16 +8,16 @@ import {
 
 export class ToastifyBuilder {
   public static readonly defaultConfig: ToastifyOptions = {
-    message: "va dau la muie la toti",
+    message: "",
     severity: ToastifyNotificationSeverity.Default,
     position: ToastifyPosition.TopRight,
     transition: ToastifyTransition.Zoom,
-    autoClose: 2000,
+    autoClose: 1000,
     hideProgressBar: true,
     newestOnTop: true,
     closeOnClick: true,
-    pauseOnHover: true,
-    pauseOnVisibilityChange: true,
+    pauseOnHover: false,
+    pauseOnVisibilityChange: false,
     iconLibrary: ToastifyIconLibrary.Material,
     autoCloseError: 0,
     autoCloseInfo: 0,

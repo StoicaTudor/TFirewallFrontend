@@ -1,71 +1,68 @@
-<button (click)="showToast()">Show Toast</button>
+<h2>Users List</h2>
+<mat-checkbox [(ngModel)]="deleteProfileOnRightClick">Delete Profile On Right Click</mat-checkbox>
 
+<table class="table table-bordered table-striped text-center">
+  <thead>
+  <tr>
+    <th>Email</th>
+    <th>Role</th>
+    <th>Profiles</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let user of users()">
+    <td>{{ user.email }}</td>
+    <td>{{ user.role }}</td>
+    <td>
+      <button
+        mat-button
+        color="accent"
+        class="distinctive-button"
+        *ngFor="let profile of user.profiles | filter: { isActiveProfile: true }"
+        (click)="openUpdateUserProfileModal(profile)"
+        (contextmenu)="onRightClick($event, profile)"
+      >
+        {{ profile.name ?? "Profile" }}
+        <span class="flag-icon material-icons">flag</span>
+      </button>
 
-<!--<h2>Users List</h2>-->
-<!--<mat-checkbox [(ngModel)]="deleteProfileOnRightClick">Delete Profile On Right Click</mat-checkbox>-->
+      <button
+        mat-button
+        *ngFor="let profile of user.profiles | filter: { isActiveProfile: false }"
+        (click)="openUpdateUserProfileModal(profile)"
+        (contextmenu)="onRightClick($event, profile)"
+      >
+        {{ profile.name ?? "Profile" }}
+      </button>
 
-<!--<table class="table table-bordered table-striped text-center">-->
-<!--  <thead>-->
-<!--  <tr>-->
-<!--    <th>Email</th>-->
-<!--    <th>Role</th>-->
-<!--    <th>Profiles</th>-->
-<!--  </tr>-->
-<!--  </thead>-->
-<!--  <tbody>-->
-<!--  <tr *ngFor="let user of users()">-->
-<!--    <td>{{ user.email }}</td>-->
-<!--    <td>{{ user.role }}</td>-->
-<!--    <td>-->
-<!--      <button-->
-<!--        mat-button-->
-<!--        color="accent"-->
-<!--        class="distinctive-button"-->
-<!--        *ngFor="let profile of user.profiles | filter: { isActiveProfile: true }"-->
-<!--        (click)="openUpdateUserProfileModal(profile)"-->
-<!--        (contextmenu)="onRightClick($event, profile)"-->
-<!--      >-->
-<!--        {{ profile.name ?? "Profile" }}-->
-<!--        <span class="flag-icon material-icons">flag</span>-->
-<!--      </button>-->
+      <button mat-button (click)="openCreateUserProfileModal(user)">+</button>
+    </td>
+  </tr>
 
-<!--      <button-->
-<!--        mat-button-->
-<!--        *ngFor="let profile of user.profiles | filter: { isActiveProfile: false }"-->
-<!--        (click)="openUpdateUserProfileModal(profile)"-->
-<!--        (contextmenu)="onRightClick($event, profile)"-->
-<!--      >-->
-<!--        {{ profile.name ?? "Profile" }}-->
-<!--      </button>-->
+  <!-- New user input row -->
+  <tr *ngIf="isAddingNewUser">
+    <td>
+      <input type="text" [(ngModel)]="newUser.email" placeholder="Enter email" class="form-control text-center">
+    </td>
+    <td>
+      <select [(ngModel)]="newUser.role" class="form-control text-center">
+        <option *ngFor="let role of userRoles" [value]="role">{{ role }}</option>
+      </select>
+    </td>
+    <td>
+      <button (click)="saveNewUser()" class="btn btn-primary">Save</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
 
-<!--      <button mat-button (click)="openCreateUserProfileModal(user)">+</button>-->
-<!--    </td>-->
-<!--  </tr>-->
-
-<!--  &lt;!&ndash; New user input row &ndash;&gt;-->
-<!--  <tr *ngIf="isAddingNewUser">-->
-<!--    <td>-->
-<!--      <input type="text" [(ngModel)]="newUser.email" placeholder="Enter email" class="form-control text-center">-->
-<!--    </td>-->
-<!--    <td>-->
-<!--      <select [(ngModel)]="newUser.role" class="form-control text-center">-->
-<!--        <option *ngFor="let role of userRoles" [value]="role">{{ role }}</option>-->
-<!--      </select>-->
-<!--    </td>-->
-<!--    <td>-->
-<!--      <button (click)="saveNewUser()" class="btn btn-primary">Save</button>-->
-<!--    </td>-->
-<!--  </tr>-->
-<!--  </tbody>-->
-<!--</table>-->
-
-<!--&lt;!&ndash; Button to add a new user row &ndash;&gt;-->
-<!--<div class="button-container" fxLayout="row" fxLayoutAlign="start center">-->
-<!--  <div class="text-center mt-3">-->
-<!--    <button (click)="addNewUserRow()" class="btn btn-success">Add New User</button>-->
-<!--    <button (click)="deleteAllUsers()" class="btn btn-success">Delete All Users</button>-->
-<!--  </div>-->
-<!--</div>-->
+<!-- Button to add a new user row -->
+<div class="button-container" fxLayout="row" fxLayoutAlign="start center">
+  <div class="text-center mt-3">
+    <button (click)="addNewUserRow()" class="btn btn-success">Add New User</button>
+    <button (click)="deleteAllUsers()" class="btn btn-success">Delete All Users</button>
+  </div>
+</div>
 
 
 

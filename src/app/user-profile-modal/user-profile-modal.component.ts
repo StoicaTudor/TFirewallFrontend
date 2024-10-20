@@ -13,13 +13,18 @@ import {MatButton} from "@angular/material/button"
 import {UserApiDispatcher} from "../api/api-dispatcher/user-api-dispatcher.service"
 import {
   UserProfileCreationRequestDto,
-  UserProfileCreationResponseDto, UserProfileDeletionRequestDto,
-  UserProfileUpdateRequestDto, UserProfileUpdateResponseDto
+  UserProfileCreationResponseDto,
+  UserProfileDeletionRequestDto,
+  UserProfileUpdateRequestDto,
+  UserProfileUpdateResponseDto
 } from "../entities/dtos/user-dtos"
-import {MatCheckbox} from "@angular/material/checkbox";
-import {isNullOrEmpty} from "../utility/utility";
-import {UtilitiesApiDispatcher} from "../api/api-dispatcher/utilities-api-dispatcher.service";
-import {JsonValidationRequestDto} from "../entities/dtos/utilities-dtos";
+import {MatCheckbox} from "@angular/material/checkbox"
+import {isNullOrEmpty} from "../utility/utility"
+import {JsonValidationRequestDto} from "../entities/dtos/json-dtos"
+import {NotificationService} from "../cross-cutting/notification/notification.service"
+import {ToastifyNotificationSeverity, ToastifyOptions} from "../cross-cutting/notification/toastify/entities";
+import {ToastifyBuilder} from "../cross-cutting/notification/toastify/toastify-properties-builder";
+import {JsonApiDispatcher} from "../api/api-dispatcher/json-api-dispatcher.service";
 
 export enum UserProfileModalType {
   Create,
@@ -68,9 +73,10 @@ export class UserProfileModalComponent {
   modalData: UserProfileModalData
 
   constructor(
+    public notificationService: NotificationService,
     public dialogRef: MatDialogRef<UserProfileModalComponent>,
     private userApiDispatcher: UserApiDispatcher,
-    private utilitiesApiDispatcher: UtilitiesApiDispatcher,
+    private jsonApiDispatcher: JsonApiDispatcher,
     @Inject(MAT_DIALOG_DATA) data: UserProfileModalData) {
     this.modalData = data
   }
@@ -92,7 +98,9 @@ export class UserProfileModalComponent {
       json: this.modalData.data.content
     }
 
-    this.utilitiesApiDispatcher.isJsonValid(dto).subscribe(dto => dto.isValid)
+    this.jsonApiDispatcher.isJsonValid(dto).subscribe(dto => {
+      this.notificationService.pushNotification(this.getJsonNotificationConfiguration(dto.isValid))
+    })
   }
 
   onSaveCreateUserProfile(): void {
@@ -142,5 +150,25 @@ export class UserProfileModalComponent {
     this.dialogRef.close()
   }
 
-  protected readonly UserProfileModalType = UserProfileModalType;
+  getJsonNotificationConfiguration(isValid: boolean): ToastifyOptions {
+    return isValid ? this.getJsonValidNotificationConfiguration() : this.getJsonNotValidNotificationConfiguration()
+  }
+
+  getJsonValidNotificationConfiguration(): ToastifyOptions {
+    return {
+      ...ToastifyBuilder.getDefaultConfig(),
+      severity: ToastifyNotificationSeverity.Success,
+      message: "JSON is valid"
+    }
+  }
+
+  getJsonNotValidNotificationConfiguration(): ToastifyOptions {
+    return {
+      ...ToastifyBuilder.getDefaultConfig(),
+      severity: ToastifyNotificationSeverity.Warn,
+      message: "JSON is NOT valid"
+    }
+  }
+
+  protected readonly UserProfileModalType = UserProfileModalType
 }
